@@ -1,6 +1,6 @@
 # AngularAlbums
 
-cd to angular-añbum folder
+cd to angular-album folder
 then run in the command line:
 ng s -o
 
