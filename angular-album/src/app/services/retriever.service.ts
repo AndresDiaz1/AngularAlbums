@@ -11,7 +11,10 @@ export class RetrieverService {
 
    getAlbums() {
      return this.httpClient.get('https://jsonplaceholder.typicode.com/photos').subscribe(res => {
-       console.log('los albumes', res)
+       let photoAlbums = [];
+       res = res.sort((a, b) => a.albumId - b.albumId);
+       photoAlbums = res.filter(album => album.albumId <= 3);
+       console.log('los albumes', photoAlbums)
      });
    }
 
