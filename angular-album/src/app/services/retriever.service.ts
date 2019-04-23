@@ -14,6 +14,7 @@ export class RetrieverService {
        let photoAlbums = [];
        res = res.sort((a, b) => a.albumId - b.albumId);
        photoAlbums = res.filter(album => album.albumId <= 3);
+       photoAlbums=photoAlbums.filter(album => album.id <= 2)
        console.log('los albumes', photoAlbums)
      });
    }

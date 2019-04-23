@@ -4,7 +4,9 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AlbumComponent } from './components/album/album.component';
-import { RetrieverService } from './services/retriever.service'
+import { RetrieverService } from './services/retriever.service';
+import { CommonModule } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -13,7 +15,8 @@ import { RetrieverService } from './services/retriever.service'
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [RetrieverService],
   bootstrap: [AppComponent]

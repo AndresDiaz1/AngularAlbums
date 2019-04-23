@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RetrieverService } from  './services/retriever.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -9,12 +10,19 @@ import { RetrieverService } from  './services/retriever.service';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private  retriever:  RetrieverService) { 
+  constructor(private  httpClient:  HttpClient) { 
   }
-  title = 'app';
+  albumList;
 
   ngOnInit() {
-    this.retriever.getAlbums();
+    this.httpClient.get('https://jsonplaceholder.typicode.com/photos').subscribe(res => {
+       let photoAlbums = [];
+       res = res.sort((a, b) => a.albumId - b.albumId);
+       photoAlbums = res.filter(album => album.albumId <= 3);
+       photoAlbums=photoAlbums.filter(album => album.id <= 2);
+       this.albumList = photoAlbums;
+       console.log('los albumes', photoAlbums)
+     })
   }
 
 }
