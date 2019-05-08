@@ -10,20 +10,30 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent implements OnInit{
 
+  albumList: any[];
+  numberOfLastPhotographs: number;
+  numberOfRecentAlbums: number;
+
   constructor(private  httpClient:  HttpClient) { 
+    this.numberOfLastPhotographs = 2;
+    this.numberOfRecentAlbums = 3;
   }
-  albumList;
 
   ngOnInit() {
     this.httpClient.get<any[]>('https://jsonplaceholder.typicode.com/photos').subscribe(res => {
        let photoAlbums: any[]  = res;
-       const orderedPhotoAlbums: any[] = [];
+       let orderedPhotoAlbums: any[] = [];
        photoAlbums = this.orderArray(photoAlbums, 'albumId', 'asc')
 
        for(let i=0; i<= photoAlbums[photoAlbums.length-1].albumId; i++){
         orderedPhotoAlbums[i] = photoAlbums.filter(album => album.albumId == i);
         orderedPhotoAlbums[i] = this.orderArray( orderedPhotoAlbums[i], 'id', 'desc');
+        orderedPhotoAlbums[i]= orderedPhotoAlbums[i].slice(0,this.numberOfLastPhotographs)
        }
+       orderedPhotoAlbums = this.orderArray(orderedPhotoAlbums,'albumId', 'desc')
+       orderedPhotoAlbums = orderedPhotoAlbums.reverse();
+       orderedPhotoAlbums = orderedPhotoAlbums.slice(0,this.numberOfRecentAlbums);
+       this.albumList = orderedPhotoAlbums;
        console.log('los albumes', orderedPhotoAlbums)
      })
   }

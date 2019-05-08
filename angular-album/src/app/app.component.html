@@ -1,8 +1,10 @@
 <h2>album list</h2>
-<div  *ngFor="let album of albumList" >
-  <div [ngClass]="{'Album1': album.albumId == 1, 'Album2': album.albumId == 2, 'Album3': album.albumId == 3}">
+<div  *ngFor="let albumes of albumList; let i = index" >
+  <div *ngFor="let album of albumes">
+    <div [ngClass]="{'Album1': i == 0, 'Album2': i == 1, 'Album3': i == 2}">
       <span>{{album.title}}</span>
       <img src={{album.thumbnailUrl}}>
+    </div>
   </div>
 </div>
 
