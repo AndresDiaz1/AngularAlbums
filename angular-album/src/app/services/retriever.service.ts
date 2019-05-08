@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
@@ -9,14 +10,8 @@ export class RetrieverService {
 
    }
 
-   getAlbums() {
-     return this.httpClient.get('https://jsonplaceholder.typicode.com/photos').subscribe(res => {
-      //  let photoAlbums = [];
-      //  res = res.sort((a, b) => a.albumId - b.albumId);
-      //  photoAlbums = res.filter(album => album.albumId <= 3);
-      //  photoAlbums=photoAlbums.filter(album => album.id <= 2)
-      //  console.log('los albumes', photoAlbums)
-     });
+   getAlbums(): Observable<any> {
+     return this.httpClient.get<any[]>('https://jsonplaceholder.typicode.com/photos');
    }
 
 }
