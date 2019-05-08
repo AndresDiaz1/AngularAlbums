@@ -15,14 +15,25 @@ export class AppComponent implements OnInit{
   albumList;
 
   ngOnInit() {
-    this.httpClient.get('https://jsonplaceholder.typicode.com/photos').subscribe(res => {
-       let photoAlbums = [];
-       res = res.sort((a, b) => a.albumId - b.albumId);
-       photoAlbums = res.filter(album => album.albumId <= 3);
-       photoAlbums=photoAlbums.filter(album => album.id <= 2);
-       this.albumList = photoAlbums;
-       console.log('los albumes', photoAlbums)
+    this.httpClient.get<any[]>('https://jsonplaceholder.typicode.com/photos').subscribe(res => {
+       let photoAlbums: any[]  = res;
+       const orderedPhotoAlbums: any[] = [];
+       photoAlbums = this.orderArray(photoAlbums, 'albumId', 'asc')
+
+       for(let i=0; i<= photoAlbums[photoAlbums.length-1].albumId; i++){
+        orderedPhotoAlbums[i] = photoAlbums.filter(album => album.albumId == i);
+        orderedPhotoAlbums[i] = this.orderArray( orderedPhotoAlbums[i], 'id', 'desc');
+       }
+       console.log('los albumes', orderedPhotoAlbums)
      })
+  }
+
+  orderArray(arr, property, orientation):any[]{
+    if(orientation === "asc"){
+      return arr.sort((a, b) => a[property] - b[property]);
+    }else {
+      return arr.sort((a, b) => b[property] - a[property]);
+    }
   }
 
 }
