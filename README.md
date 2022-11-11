@@ -22,3 +22,4 @@ Album 3 border: Purple.
  
 API to get album list: https://jsonplaceholder.typicode.com/photos
 
+
